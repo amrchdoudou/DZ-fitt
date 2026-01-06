@@ -1,0 +1,114 @@
+[
+  {
+    "model": "app.service",
+    "pk": 1,
+    "fields": {
+      "nom": "douches"
+    }
+  },
+  {
+    "model": "app.service",
+    "pk": 2,
+    "fields": {
+      "nom": "wifi"
+    }
+  },
+  {
+    "model": "app.service",
+    "pk": 3,
+    "fields": {
+      "nom": "climatisation"
+    }
+  },
+  {
+    "model": "app.service",
+    "pk": 4,
+    "fields": {
+      "nom": "parking"
+    }
+  },
+  {
+    "model": "app.service",
+    "pk": 5,
+    "fields": {
+      "nom": "vestiaires"
+    }
+  },
+  {
+    "model": "app.service",
+    "pk": 6,
+    "fields": {
+      "nom": "casiers"
+    }
+  },
+  {
+    "model": "app.service",
+    "pk": 7,
+    "fields": {
+      "nom": "sauna"
+    }
+  },
+  {
+    "model": "app.service",
+    "pk": 8,
+    "fields": {
+      "nom": "accueil"
+    }
+  },
+  {
+    "model": "app.equipement",
+    "pk": 1,
+    "fields": {
+      "name": "Tapis de course"
+    }
+  },
+  {
+    "model": "app.equipement",
+    "pk": 2,
+    "fields": {
+      "name": "Vélo stationnaire"
+    }
+  },
+  {
+    "model": "app.equipement",
+    "pk": 3,
+    "fields": {
+      "name": "Rameur"
+    }
+  },
+  {
+    "model": "app.equipement",
+    "pk": 4,
+    "fields": {
+      "name": "Presse à jambes"
+    }
+  },
+  {
+    "model": "app.equipement",
+    "pk": 5,
+    "fields": {
+      "name": "Banc de musculation"
+    }
+  },
+  {
+    "model": "app.equipement",
+    "pk": 6,
+    "fields": {
+      "name": "Haltères"
+    }
+  },
+  {
+    "model": "app.equipement",
+    "pk": 7,
+    "fields": {
+      "name": "Barres olympiques"
+    }
+  },
+  {
+    "model": "app.equipement",
+    "pk": 8,
+    "fields": {
+      "name": "Machine Smith"
+    }
+  }
+]

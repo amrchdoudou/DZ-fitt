@@ -1,0 +1,75 @@
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    platform: linux/amd64
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    ports:
+      - "${DATABASE_EXTERNAL_PORT:-5433}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build: .
+    platform: linux/amd64
+    entrypoint: []
+    command: >
+      sh -c "
+        echo 'Waiting for database...' &&
+        python back/manage.py migrate --noinput &&
+        gunicorn config.wsgi:application --chdir back --bind 0.0.0.0:8000
+      "
+    volumes:
+      - .:/code
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/admin/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  front:
+    build:
+      context: ./front
+    platform: linux/amd64
+    entrypoint: []
+    command: npm run dev -- --host 0.0.0.0
+    ports:
+      - "${FRONTEND_PORT:-5173}:5173"
+    volumes:
+      - ./front:/app
+      - /app/node_modules
+    depends_on:
+      web:
+        condition: service_healthy
+    env_file:
+      - ./front/.env
+    environment:
+      - NODE_ENV=${NODE_ENV:-development}
+    networks:
+      - app-network
+
+volumes:
+  postgres_data:
+
+networks:
+  app-network:
+    driver: bridge
